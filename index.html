@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Random Suggest Mix</title>
+    <title>Random Suggest Mix Ultimate</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Adsgram SDK -->
@@ -15,7 +15,7 @@
     <div class="container">
         <header>
             <h1>✨ ميكس الاقتراحات ✨</h1>
-            <p>دع الحظ يختار لك!</p>
+            <p>اكتشف، استمتع، وجرب حظك!</p>
         </header>
 
         <div class="categories">
@@ -35,23 +35,49 @@
                 <div class="icon">✈️</div>
                 <span>سفر</span>
             </div>
+            <!-- New Categories -->
+            <div class="card" data-type="challenge" onclick="selectCategory('challenge')">
+                <div class="icon">🎯</div>
+                <span>تحدي</span>
+            </div>
+            <div class="card" data-type="joke" onclick="selectCategory('joke')">
+                <div class="icon">😂</div>
+                <span>نكتة</span>
+            </div>
+            <div class="card" data-type="quote" onclick="selectCategory('quote')">
+                <div class="icon">💡</div>
+                <span>حكمة</span>
+            </div>
+            <div class="card" data-type="book" onclick="selectCategory('book')">
+                <div class="icon">📚</div>
+                <span>كتاب</span>
+            </div>
         </div>
 
         <div class="action-area">
             <button id="mix-btn" class="main-btn" onclick="generateMix()">
-                <span class="btn-text">اقتراح عشوائي</span>
-                <span class="btn-icon">🎲</span>
+                <span class="btn-text">جرب حظك</span>
+                <span class="btn-icon">🎰</span>
             </button>
         </div>
 
         <!-- Result Modal -->
         <div id="result-modal" class="modal hidden">
             <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <div id="result-icon" class="result-icon">✨</div>
-                <h2 id="result-title">النتيجة</h2>
+                <div class="modal-header">
+                    <div id="result-icon" class="result-icon">✨</div>
+                    <h3 id="result-title" class="result-title">النتيجة</h3>
+                </div>
+
                 <div id="result-value" class="result-value">...</div>
-                <button class="share-btn" onclick="shareResult()">مشاركة 📤</button>
+                <div id="result-desc" class="result-desc"></div>
+                <div id="result-rating" class="rating"></div>
+
+                <div class="modal-actions">
+                    <button class="btn-icon" onclick="toggleFavorite()" id="fav-btn">❤️</button>
+                    <button class="btn-icon" onclick="shareResult()">📤</button>
+                    <button class="btn-icon" onclick="closeModal()">❌</button>
+                </div>
             </div>
         </div>
     </div>

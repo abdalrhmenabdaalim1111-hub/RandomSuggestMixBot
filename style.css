@@ -1,111 +1,166 @@
 :root {
-    --bg-color: #0f172a;
-    --card-bg: rgba(255, 255, 255, 0.1);
-    --text-color: #ffffff;
-    --accent-color: #8b5cf6;
-    --secondary-color: #ec4899;
+    --bg-dark: #050510;
+    --bg-panel: rgba(255, 255, 255, 0.05);
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --accent-gold: #ffd700;
+    --accent-cyan: #00f3ff;
+    --accent-pink: #ff00ff;
+    --neon-cyan: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+    --neon-gold: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    color: var(--text-color);
+    background: radial-gradient(circle at center, #1a1a3a 0%, #050510 100%);
+    color: var(--text-main);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow-x: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     padding: 20px;
+    padding-bottom: 80px;
+    /* For bottom nav */
+}
+
+/* Header */
+header {
     text-align: center;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 header h1 {
-    font-size: 2rem;
-    margin-bottom: 5px;
-    background: linear-gradient(to right, #c084fc, #f472b6);
+    font-size: 2.2rem;
+    margin: 0;
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-pink));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    animation: glow 3s infinite alternate;
 }
 
 header p {
-    color: #94a3b8;
-    margin-bottom: 30px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
+/* Categories Grid */
 .categories {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     margin-bottom: 30px;
 }
 
 .card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
+    background: var(--bg-panel);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 20px;
+    text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
 
-.card:hover, .card.active {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border-color: var(--accent-color);
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    transform: translateX(100%);
+}
+
+.card:hover,
+.card.active {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--accent-cyan);
+    box-shadow: var(--neon-cyan);
 }
 
 .card .icon {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
 }
 
 .card span {
+    display: block;
     font-weight: bold;
     font-size: 1.1rem;
 }
 
+/* Main Button */
+.action-area {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    z-index: 100;
+}
+
 .main-btn {
-    background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+    background: linear-gradient(45deg, #FF0080, #7928CA, #FF0080);
+    background-size: 200% 200%;
     border: none;
-    padding: 15px 40px;
+    padding: 18px;
     border-radius: 50px;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(121, 40, 202, 0.5);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    animation: gradientMove 3s ease infinite;
+    transition: transform 0.2s;
 }
 
 .main-btn:active {
-    transform: scale(0.95);
+    transform: translateX(-50%) scale(0.95);
 }
 
-/* Modal */
+/* Modal & Result */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,6 +168,7 @@ header p {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
+    backdrop-filter: blur(5px);
 }
 
 .modal.visible {
@@ -121,65 +177,156 @@ header p {
 }
 
 .modal-content {
-    background: #1e293b;
+    background: #1a1a2e;
     padding: 30px;
-    border-radius: 20px;
-    width: 85%;
-    max-width: 350px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 380px;
     text-align: center;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--accent-gold);
+    box-shadow: var(--neon-gold);
+    transform: scale(0.8) rotateX(20deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal.visible .modal-content {
-    transform: scale(1);
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #94a3b8;
+    transform: scale(1) rotateX(0);
 }
 
 .result-icon {
     font-size: 4rem;
-    margin-bottom: 15px;
-    animation: bounce 1s infinite;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.result-title {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .result-value {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: var(--secondary-color);
-    margin: 20px 0;
-    line-height: 1.4;
-}
-
-.share-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
-    padding: 10px 25px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s;
+    margin: 10px 0;
+    line-height: 1.3;
+    min-height: 60px;
+    /* Prevent jump during slot animation */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.share-btn:hover {
+.result-desc {
+    color: #ccc;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.rating {
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
     background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.btn-icon.fav-active {
+    color: #ff4081;
+    background: rgba(255, 64, 129, 0.2);
+}
+
+/* Animations */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(0, 243, 255, 0.6), 0 0 10px var(--accent-pink);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Slot Machine Effect Class */
+.slot-spin {
+    animation: blurText 0.1s infinite;
+}
+
+@keyframes blurText {
+    0% {
+        filter: blur(0);
+        transform: translateY(0);
+    }
+
+    50% {
+        filter: blur(2px);
+        transform: translateY(-2px);
+    }
+
+    100% {
+        filter: blur(0);
+        transform: translateY(2px);
+    }
 }
 
 .hidden {
     display: none;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
 }
