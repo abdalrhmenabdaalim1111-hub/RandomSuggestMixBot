@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Random Suggest Mix</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Adsgram SDK -->
+    <script src="//libtl.com/sdk.js" data-zone="10279136" data-sdk="show_10279136"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>✨ ميكس الاقتراحات ✨</h1>
+            <p>دع الحظ يختار لك!</p>
+        </header>
+
+        <div class="categories">
+            <div class="card" data-type="food" onclick="selectCategory('food')">
+                <div class="icon">🍔</div>
+                <span>أكلة</span>
+            </div>
+            <div class="card" data-type="movie" onclick="selectCategory('movie')">
+                <div class="icon">🎬</div>
+                <span>فيلم</span>
+            </div>
+            <div class="card" data-type="song" onclick="selectCategory('song')">
+                <div class="icon">🎵</div>
+                <span>أغنية</span>
+            </div>
+            <div class="card" data-type="travel" onclick="selectCategory('travel')">
+                <div class="icon">✈️</div>
+                <span>سفر</span>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <button id="mix-btn" class="main-btn" onclick="generateMix()">
+                <span class="btn-text">اقتراح عشوائي</span>
+                <span class="btn-icon">🎲</span>
+            </button>
+        </div>
+
+        <!-- Result Modal -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <div id="result-icon" class="result-icon">✨</div>
+                <h2 id="result-title">النتيجة</h2>
+                <div id="result-value" class="result-value">...</div>
+                <button class="share-btn" onclick="shareResult()">مشاركة 📤</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
